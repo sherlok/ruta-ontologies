@@ -1,0 +1,10 @@
+language: java
+
+jdk:
+  - oraclejdk7
+
+script: mvn clean install
+
+notifications:
+  email:
+  - renaud.richardet@gmail.ch
