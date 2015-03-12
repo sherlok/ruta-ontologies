@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -28,43 +29,53 @@ public class OBOOntology {
     boolean isTypeOfIsBuilt = false;
 
     /**
-     * Read a .obo file
+     * Reads a .obo file
+     * 
+     * @param is
+     *            The .obo file inputstream to read.
+     */
+    public OBOOntology read(InputStream is) throws IOException {
+        try {
+            read(new BufferedReader(new InputStreamReader(is, "UTF-8")));
+        } finally {
+            is.close();
+        }
+        return this;
+    }
+
+    /**
+     * Reads a .obo file
      * 
      * @param f
      *            The .obo file to read.
-     * @throws Exception
      */
-    public void read(File f) throws IOException {
-        FileInputStream fis = new FileInputStream(f);
-        try {
-            read(new BufferedReader(new InputStreamReader(fis, "UTF-8")));
-        } finally {
-            try {
-                fis.close();
-            } catch (Exception e) {
-
-            }
-        }
+    public OBOOntology read(File f) throws IOException {
+        return read(new FileInputStream(f));
     }
 
     void read(BufferedReader br) throws IOException {
-        List<String> lines = new ArrayList<String>();
+        List<String> termLines = new ArrayList<String>();
         boolean inTerm = false;
         String line = br.readLine();
         while (line != null) {
             if (line.matches("\\[.*\\]")) {
-                if (inTerm) {
-                    handleTerm(lines);
+                if (inTerm) { // new term --> handle and reset
+                    handleTerm(termLines);
                     inTerm = false;
-                    lines = new ArrayList<String>();
+                    termLines = new ArrayList<String>();
                 }
-                if (line.equals("[Term]"))
+                if (line.equals("[Term]")) {
                     inTerm = true;
+                }
             } else {
-                if (inTerm)
-                    lines.add(line);
+                if (inTerm) { // -> add to lines
+                    termLines.add(line);
+                }
             }
             line = br.readLine();
+        }
+        if (inTerm) { // handle last term
+            handleTerm(termLines);
         }
     }
 
@@ -381,5 +392,4 @@ public class OBOOntology {
     public Map<String, OntologyTerm> getTerms() {
         return terms;
     }
-
 }
