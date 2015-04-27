@@ -41,8 +41,9 @@ public class TagActionExtensionTest {
 
         Collection<RutaColoring> colors = JCasUtil.select(jCas,
                 RutaColoring.class);
-        assertEquals(2, colors.size());
-        assertEquals(2, select(jCas, "RutaColoring").size());
+        assertEquals("red & blue", 2, colors.size());
+        assertEquals("same, but using the convenience method", 2,
+                select(jCas, "RutaColoring").size());
     }
 
     @Test

@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -41,6 +42,14 @@ public class OBOOntology {
             is.close();
         }
         return this;
+    }
+
+    /**
+     * @param url
+     *            The obo URL to read from
+     */
+    public OBOOntology read(URL url) throws IOException {
+        return read(url.openStream());
     }
 
     /**
