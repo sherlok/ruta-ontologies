@@ -15,7 +15,7 @@ import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.cas.TOP;
 import org.apache.uima.ruta.engine.Ruta;
 import org.apache.uima.ruta.type.RutaColoring;
-import org.junit.Ignore;
+import org.apache.uima.ruta.type.tag.Country;
 import org.junit.Test;
 
 public class TagActionExtensionTest {
@@ -47,11 +47,10 @@ public class TagActionExtensionTest {
     }
 
     @Test
-    @Ignore
     public void testTxtRemote() throws Exception {
 
         JCas jCas = JCasFactory.createJCas();
-        jCas.setDocumentText("The red fox jumps over the blue fence");
+        jCas.setDocumentText("Nice trip to Indonesia, but we liked Thailand better.");
 
         String countries = "https://rawgit.com/sherlok/sherlok/7ce0355dcbd06e18c9db20b2c4cd6c1e6b7f195d/config/resources/countries.txt";
 
@@ -62,10 +61,9 @@ public class TagActionExtensionTest {
 
         Ruta.apply(jCas.getCas(), script, parameters);
 
-        Collection<RutaColoring> colors = JCasUtil.select(jCas,
-                RutaColoring.class);
+        Collection<Country> colors = JCasUtil.select(jCas, Country.class);
         assertEquals(2, colors.size());
-        assertEquals(2, select(jCas, "RutaColoring").size());
+        assertEquals(2, select(jCas, "Country").size());
     }
 
     @Test

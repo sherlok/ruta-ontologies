@@ -75,7 +75,6 @@ public class TagActionExtension implements IRutaActionExtension {
 
             file = get(args, 0);
 
-            /*-
             // handle remote urls
             if (file.startsWith("http://") || file.startsWith("https://")) {
                 String url = file;
@@ -85,13 +84,13 @@ public class TagActionExtension implements IRutaActionExtension {
                             file.substring(file.lastIndexOf('/')), urlExt);
                     copyURLToFile(new URL(file), tmpFile);
 
+                    // replace with path to local tmp file
                     file = tmpFile.getAbsolutePath();
                 } catch (Exception e) {
                     throw new RutaParseException("Could not download '" + url
                             + "'");
                 }
-                // Ensure file is not empty (check if 1st line is empty)
-                try {
+                try { // Ensure file is not empty (check if 1st line is empty)
                     BufferedReader br = new BufferedReader(new FileReader(file));
                     if (br.readLine() == null) {
                         br.close();
@@ -101,7 +100,8 @@ public class TagActionExtension implements IRutaActionExtension {
                 } catch (IOException e) {
                     throw new RutaParseException(url + " is empty");
                 }
-            }*/
+                file = "file://" + file; // for Spring resource resolver
+            }
 
             // Annotation type (2nd parameter)
             RutaExpression re = args.get(1);
