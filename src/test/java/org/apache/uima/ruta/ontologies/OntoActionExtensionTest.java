@@ -1,4 +1,4 @@
-package org.apache.uima.ruta.tag;
+package org.apache.uima.ruta.ontologies;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -15,15 +15,14 @@ import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.cas.TOP;
 import org.apache.uima.ruta.engine.Ruta;
 import org.apache.uima.ruta.type.RutaColoring;
-import org.apache.uima.ruta.type.tag.Country;
 import org.junit.Test;
 
-public class TagActionExtensionTest {
+public class OntoActionExtensionTest {
 
     static Map<String, Object> parameters = new HashMap<>();
     static {
         parameters.put("additionalExtensions",
-                new String[] { TagActionExtension.class.getName() });
+                new String[] { OntoActionExtension.class.getName() });
     }
 
     @Test
@@ -35,7 +34,7 @@ public class TagActionExtensionTest {
         String script = ""
                 + "PACKAGE org.apache.uima.ruta.type;\n" //
                 + "DECLARE RutaColoring;\n"
-                + "Document{->TAG(\"colors.txt\", RutaColoring)};";
+                + "Document{->ONTO(\"colors.txt\", RutaColoring)};";
 
         Ruta.apply(jCas.getCas(), script, parameters);
 
@@ -47,26 +46,6 @@ public class TagActionExtensionTest {
     }
 
     @Test
-    public void testTxtRemote() throws Exception {
-
-        JCas jCas = JCasFactory.createJCas();
-        jCas.setDocumentText("Nice trip to Indonesia, but we liked Thailand better.");
-
-        String countries = "https://rawgit.com/sherlok/sherlok/7ce0355dcbd06e18c9db20b2c4cd6c1e6b7f195d/config/resources/countries.txt";
-
-        String script = ""
-                + "PACKAGE org.apache.uima.ruta.type.tag;\n" //
-                + "DECLARE Country;\n" + "Document{->TAG(\"" + countries
-                + "\", Country)};";
-
-        Ruta.apply(jCas.getCas(), script, parameters);
-
-        Collection<Country> colors = JCasUtil.select(jCas, Country.class);
-        assertEquals(2, colors.size());
-        assertEquals(2, select(jCas, "Country").size());
-    }
-
-    @Test
     public void testCsv() throws Exception {
 
         JCas jCas = JCasFactory.createJCas();
@@ -75,7 +54,7 @@ public class TagActionExtensionTest {
         String script = ""
                 + "PACKAGE org.apache.uima.ruta.type.tag;\n" //
                 + "DECLARE Annotation Animal(STRING color, STRING species);\n"
-                + "Document{->TAG(\"animals.csv\", Animal, \"color\")};";
+                + "Document{->ONTO(\"animals.csv\", Animal, \"color\")};";
 
         Ruta.apply(jCas.getCas(), script, parameters);
 
@@ -99,7 +78,7 @@ public class TagActionExtensionTest {
         String script = ""
                 + "PACKAGE org.apache.uima.ruta.type.tag;\n" //
                 + "DECLARE Annotation Neurotransmitter(STRING ontologyId);\n"
-                + "Document{->TAG(\"hbp_neurotransmitter_ontology.obo\", Neurotransmitter, \"ontologyId\")};";
+                + "Document{->ONTO(\"hbp_neurotransmitter_ontology.obo\", Neurotransmitter, \"ontologyId\")};";
 
         Ruta.apply(jCas.getCas(), script, parameters);
 

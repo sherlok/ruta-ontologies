@@ -1,39 +1,27 @@
-# Apache Ruta TAG extension
+# Ontology support for Apache Ruta
 
-## TAG keyword
+## ONTO keyword
 
-Extends the [Apache Ruta language](https://uima.apache.org/d/ruta-current/tools.ruta.book.html) with a `TAG` keyword.
+Extends the [Apache Ruta language](https://uima.apache.org/d/ruta-current/tools.ruta.book.html) with an `ONTO` keyword.
  
+    
+
+For OBO file types, `ONTO` should have 3 arguments with the format `ONTO('myfile.obo', MyAnnotationClass, 'idFieldName')");`
+
     PACKAGE org.apache.uima.ruta.type;
-
-    // tagging with a text file
-    DECLARE RutaColoring;
-    Document{ -> TAG(RutaColoring, "colors.txt")};
-
-    // tagging with an OBO file
-    DECLARE Animal;
-    Document{ -> TAG(Animal, "animals.obo")};
+    DECLARE Annotation Neurotransmitter(STRING ontologyId);
+    Document{->ONTO("hbp_neurotransmitter_ontology.obo", Neurotransmitter, "ontologyId")};
 
 
-### Format
+For CSV file types, `ONTO` should have the format `ONTO('myfile.csv', MyAnnotationClass, 'field1, 'field2', ... )");`
 
-TAG(obo/test.obo);
-
-TAG(http://my.com/obo/test.obo);
-
-TAG(git://github.com/myrepo/obo/test.obo);
-
-
-LATER:
-
-authentication: `TAG(git://user:password@companygit.com/myrepo/obo.test.obo)`
-
-svn, ftp
+    PACKAGE org.apache.uima.ruta.type.tag;
+    DECLARE Annotation Animal(STRING color, STRING species);
+    Document{ -> ONTO("animals.csv", Animal, "color")};
 
 
 
-
-## Ontologies
+## Some OBO Ontologies
 
 
 ### [some NS-relevant OWL and OBO ontologies](https://bbpteam.epfl.ch/project/spaces/display/NLP/OBO)

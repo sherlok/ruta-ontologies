@@ -1,15 +1,10 @@
-package org.apache.uima.ruta.tag;
+package org.apache.uima.ruta.ontologies;
 
-import static java.io.File.createTempFile;
-import static org.apache.commons.io.FileUtils.copyURLToFile;
 import static org.apache.commons.io.FilenameUtils.getExtension;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,9 +30,15 @@ import org.apache.uima.ruta.extensions.RutaParseException;
 import org.apache.uima.ruta.tag.obo.OboWordTable;
 import org.apache.uima.ruta.verbalize.RutaVerbalizer;
 
-public class TagActionExtension implements IRutaActionExtension {
+/**
+ * Ruta extension to handle simple cases of lexical matching from static
+ * ontology files (obo). Also works with csv and txt.
+ * 
+ * @author renaud@apache.org
+ */
+public class OntoActionExtension implements IRutaActionExtension {
 
-    public final static String EXTENSION_KEYWORD = "TAG";
+    public final static String EXTENSION_KEYWORD = "ONTO";
     public final static SimpleBooleanExpression TRUE = new SimpleBooleanExpression(
             true);
     private final Class<?>[] extensions = new Class[] {};
@@ -69,39 +70,11 @@ public class TagActionExtension implements IRutaActionExtension {
             List<RutaExpression> args) throws RutaParseException {
 
         if (args == null || args.size() < 2) {
-            throw new RutaParseException(
-                    "TAG acccepts as arguments File AnnotationClass");
+            throw new RutaParseException(EXTENSION_KEYWORD
+                    + " acccepts as arguments File AnnotationClass");
         } else {
 
             file = get(args, 0);
-
-            // handle remote urls
-            if (file.startsWith("http://") || file.startsWith("https://")) {
-                String url = file;
-                try {
-                    String urlExt = url.substring(url.lastIndexOf('.'));
-                    File tmpFile = createTempFile(
-                            file.substring(file.lastIndexOf('/')), urlExt);
-                    copyURLToFile(new URL(file), tmpFile);
-
-                    // replace with path to local tmp file
-                    file = tmpFile.getAbsolutePath();
-                } catch (Exception e) {
-                    throw new RutaParseException("Could not download '" + url
-                            + "'");
-                }
-                try { // Ensure file is not empty (check if 1st line is empty)
-                    BufferedReader br = new BufferedReader(new FileReader(file));
-                    if (br.readLine() == null) {
-                        br.close();
-                        throw new IOException();
-                    }
-                    br.close();
-                } catch (IOException e) {
-                    throw new RutaParseException(url + " is empty");
-                }
-                file = "file://" + file; // for Spring resource resolver
-            }
 
             // Annotation type (2nd parameter)
             RutaExpression re = args.get(1);
@@ -119,7 +92,7 @@ public class TagActionExtension implements IRutaActionExtension {
                 return ActionFactory.createMarkFastAction(te, list, ignore,
                         ignoreLengthTxt, ignoreWS, null);
 
-            } else { // CSV or OBO or fail
+            } else { // CSV or OBO or else fail
 
                 // common params for CSV and OBO
                 // the Ruta element is searched for all occurences of the
@@ -133,7 +106,7 @@ public class TagActionExtension implements IRutaActionExtension {
                 if ("csv".equals(fileExt)) {
                     if (args.size() < 3) {
                         throw new RutaParseException(
-                                "For CSV file types, TAG should have the format TAG('myfile.csv', MyAnnotationClass, 'field1, 'field2', ... )");
+                                "For CSV file types, ONTO should have the format ONTO('myfile.csv', MyAnnotationClass, 'field1, 'field2', ... )");
                     }
                     table = new LiteralWordTableExpression(file);
 
@@ -178,7 +151,7 @@ public class TagActionExtension implements IRutaActionExtension {
                         idFieldName = get(args, 2);
                     } else {
                         throw new RutaParseException(
-                                "For OBO file types, TAG should have the format TAG('myfile.obo', MyAnnotationClass, 'idFieldName')");
+                                "For OBO file types, ONTO should have 3 arguments with the format ONTO('myfile.obo', MyAnnotationClass, 'idFieldName')");
                     }
                     Map<IStringExpression, INumberExpression> map = new HashMap<>();
                     map.put(new SimpleStringExpression(idFieldName),
@@ -196,7 +169,7 @@ public class TagActionExtension implements IRutaActionExtension {
 
                 } else {
                     throw new RutaParseException(
-                            "TAG acccepts as arguments AnnotationClass File, where File should be of type 'txt', 'csv' or 'obo', but you provided '"
+                            "ONTO acccepts as arguments AnnotationClass File, where File should be of type 'txt', 'csv' or 'obo', but you provided '"
                                     + file + "'");
                 }
             }
