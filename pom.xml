@@ -25,6 +25,12 @@
       <version>4.0</version>
     </dependency>
 
+    <dependency>
+      <groupId>com.github.bluezio</groupId>
+      <artifactId>xeger</artifactId>
+      <version>20130128</version>
+    </dependency>
+
 
     <!-- TESTS -->
     <dependency>
@@ -34,6 +40,15 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <repositories>
+    <!-- JitPack builds GitHub projects on demand and publishes ready-to-use 
+      packages -->
+    <repository>
+      <id>jitpack.io</id>
+      <url>https://jitpack.io</url>
+    </repository>
+  </repositories>
 
   <build>
     <plugins>

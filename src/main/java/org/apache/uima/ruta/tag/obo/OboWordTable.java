@@ -24,7 +24,6 @@ public class OboWordTable extends WordTableExpression {
 
     public OboWordTable(String oboPath) throws IOException {
         this.oboPath = oboPath;
-
     }
 
     @Override
@@ -35,18 +34,20 @@ public class OboWordTable extends WordTableExpression {
         Resource resource = resourceLoader.getResource(oboPath);
         if (!resource.exists()) {
             throw new RuntimeException("Cannot file obo file "
-                    + resource.getFilename());
+                    + resource.getFilename() + " [" + oboPath + "]");
         } else {
             try {
                 OBOOntology obo = new OBOOntology().read(resource
                         .getInputStream());
+                if (resource.getFilename().endsWith("robo")) {
+                    RoboExpander.expand(obo);
+                }
                 return new OboRutaTable(obo);
             } catch (IOException e) {
                 throw new RuntimeException("Error reading obo file "
                         + resource.getFilename(), e);
             }
         }
-
     }
 
     public static class OboRutaTable implements RutaTable {
@@ -69,7 +70,7 @@ public class OboWordTable extends WordTableExpression {
             }
         }
 
-        // FIXME copied from CSVTable :-( --> ask to make fields protected
+        // FIXME below is copied from CSVTable :-( --> ask to make fields protected
 
         public RutaWordList getWordList(int index) {
             RutaWordList list = columnWordLists.get(index);

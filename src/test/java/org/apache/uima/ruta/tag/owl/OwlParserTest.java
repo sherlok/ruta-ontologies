@@ -1,7 +1,5 @@
 package org.apache.uima.ruta.tag.owl;
 
-import static org.junit.Assert.*;
-
 import java.io.InputStream;
 
 import org.junit.Test;

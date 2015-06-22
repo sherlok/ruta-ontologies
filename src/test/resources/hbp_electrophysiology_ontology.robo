@@ -1,0 +1,126 @@
+format-version: 1.1
+data-version: 0.1
+date: 23:01:2015 15:31
+saved-by: stripathy@chibi.ubc.ca
+default-namespace: HBP_EPHYS_PHENO
+ontology: HBP Electrophysiology
+
+synonymtypedef: ALTERNATE_SPELLING "alternate spelling" EXACT
+synonymtypedef: MISSPELLING "misspelling" RELATED
+synonymtypedef: ACRONYM "acronym" BROAD
+synonymtypedef: ADJECTIVE "adjective" RELATED
+synonymtypedef: ADVERB "adverb" RELATED
+synonymtypedef: PLURAL "plural term" EXACT
+synonymtypedef: CHEMICAL_FORMULA "chemical formula" EXACT
+
+
+[TypeDef]
+id: has_effect
+name: has_effect
+def: "the behaviour of post-synaptic cell" []
+
+[Term]
+id: HBP_EPHYS_PHENO:0000001
+name: regular spiking
+rsynonym: "(regular|tonic)(ly)?"
+synonym: "RS" BROAD ACRONYM []
+
+[Term]
+id: HBP_EPHYS_PHENO:0000002
+name: fast spiking
+rsynonym: "(fast|rapid)(ly)?"
+synonym: "FS" BROAD ACRONYM []
+
+[Term]
+id: HBP_EPHYS_PHENO:0000003
+name: irregular spiking
+rsynonym: "(irregular)(ly)?"
+synonym: "IS" BROAD ACRONYM []
+
+[Term]
+id: HBP_EPHYS_PHENO:0000004
+name: late spiking
+rsynonym: "(late|delay|delayed)"
+synonym: "LS" BROAD ACRONYM []
+
+[Term]
+id: HBP_EPHYS_PHENO:0000005
+name: low threshold spiking
+rsynonym: "(low[- ]threshold)"
+synonym: "LTS" BROAD ACRONYM []
+
+[Term]
+id: HBP_EPHYS_PHENO:0000006
+name: chattering firing
+rsynonym: "(chatter(ing)?)"
+synonym: chattering
+
+[Term]
+id: HBP_EPHYS_PHENO:0000007
+name: stuttering firing
+rsynonym: "(stutter(ing)?)"
+synonym: stuttering
+synonym: "STUT" BROAD ACRONYM []
+
+[Term]
+id: HBP_EPHYS_PHENO:0000008
+name: spontaneous spiking
+rsynonym: "(spontaneous(ly)?)"
+
+[Term]
+id: HBP_EPHYS_PHENO:0000009
+name: continuous spiking
+rsynonym: "(continous(ly)?)"
+
+[Term]
+id: HBP_EPHYS_PHENO:0000010
+name: burst spiking
+rsynonym: "(burst(ing)?)"
+
+[Term]
+id: HBP_EPHYS_PHENO:0000011
+name: intrinsic spiking
+rsynonym: "(intrinsic(ally)?)"
+
+[Term]
+id: HBP_EPHYS_PHENO:0000012
+name: slow spiking
+rsynonym: "(slow)(ly)?"
+
+[Term]
+id: HBP_EPHYS_PHENO:0000013
+name: accommodating firing
+rsynonym: "(accommodating)"
+synonym: "accomodating" RELATED MISSPELLING []
+
+[Term]
+id: HBP_EPHYS_PHENO:0000014
+name: non-accommodating firing
+rsynonym: "(non|not|un)[- ]?(accomodating)"
+disjoint_from: HBP_EPHYS_PHENO:0000013 ! accommodating
+
+[Term]
+id: HBP_EPHYS_PHENO:0000015
+name: adapting firing
+rsynonym: "(adapting)"
+
+[Term]
+id: HBP_EPHYS_PHENO:0000016
+name: nonadapting firing
+rsynonym: "(non|not|un)[- ]?(adapting)"
+disjoint_from: HBP_EPHYS_PHENO:0000015 ! adapting
+
+[Term]
+id: HBP_EPHYS_PHENO:0000016
+name: classical firing
+rsynonym: "(classical(ly)?)"
+disjoint_from: HBP_EPHYS_PHENO:0000015 ! adapting
+
+[Term]
+id: HBP_EPHYS_PHENO:0000017
+name: non-fast spiking
+rsynonym: "(non|not|un)[- ]?(fast|rapid)(ly)?"
+
+! Potentially todo - SJT
+!hyperpolarized
+!depolarized

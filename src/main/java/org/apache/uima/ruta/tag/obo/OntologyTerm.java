@@ -23,6 +23,7 @@ public final class OntologyTerm {
     private Set<String> isTypeOf = new HashSet<>();
     private Set<String> altID = new HashSet<>();
     private Map<String, Set<String>> relationships = new HashMap<>();
+    private Map<String, List<String>> otherProperties = new HashMap<>();
 
     private static final Pattern tagValuePattern = Pattern
             .compile("([a-z_]+):\\s+(\\S.*)");
@@ -95,6 +96,15 @@ public final class OntologyTerm {
                     if (rel.equals("has_role"))
                         isA.add(r.group(2));
                 }
+            } else {
+                List<String> props;
+                if (otherProperties.containsKey(tag)) {
+                    props = otherProperties.get(tag);
+                } else {
+                    props = new ArrayList<>();
+                }
+                props.add(val);
+                otherProperties.put(tag, props);
             }
         }
     }
@@ -112,6 +122,11 @@ public final class OntologyTerm {
     /** @return The synonyms for the term */
     public List<Synonym> getSynonyms() {
         return synonyms;
+    }
+
+    /** @return The synonyms for the term */
+    public void setSynonyms(List<Synonym> synonyms) {
+        this.synonyms = synonyms;
     }
 
     public void addSynonym(String synonym) {
@@ -141,6 +156,10 @@ public final class OntologyTerm {
 
     public Map<String, Set<String>> getRelationships() {
         return relationships;
+    }
+
+    public List<String> getOtherProperties(String tag) {
+        return otherProperties.get(tag);
     }
 
     @Override

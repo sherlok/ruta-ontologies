@@ -122,10 +122,7 @@ public class OBOOntology {
         Set<String> names = new HashSet<String>();
         names.add(term.getName());
         for (Synonym s : term.getSynonyms()) {
-            String st = s.getType();
-            if (st != null && !st.matches(".*(InChI|SMILES|FORMULA).*")) {
-                names.add(st);
-            }
+            names.add(s.getSyn());
         }
         for (String termName : names) {
             Set<String> termIds = indexByName.get(termName);

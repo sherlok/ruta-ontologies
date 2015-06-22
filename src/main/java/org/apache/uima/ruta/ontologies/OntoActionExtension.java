@@ -92,9 +92,9 @@ public class OntoActionExtension implements IRutaActionExtension {
                 return ActionFactory.createMarkFastAction(te, list, ignore,
                         ignoreLengthTxt, ignoreWS, null);
 
-            } else { // CSV or OBO or else fail
+            } else { // CSV or OBO or ROBO or else fail
 
-                // common params for CSV and OBO
+                // common params for CSV and (R)OBO
                 // the Ruta element is searched for all occurences of the
                 // entries of the 'index' column of the given 'table'
                 INumberExpression index = new SimpleNumberExpression(1);
@@ -128,18 +128,19 @@ public class OntoActionExtension implements IRutaActionExtension {
                             table, map, ignoreCase, ignoreLength, ignoreChar,
                             maxIgnoreChar, null);
 
-                } else if ("obo".equals(fileExt)) {
+                } else if ("obo".equals(fileExt) | "robo".equals(fileExt)) {
                     try {
                         table = new OboWordTable(file);
+
                     } catch (FileNotFoundException e) {
                         throw new RutaParseException(
-                                "could not find OBO ontology at '" + file
+                                "could not find (R)OBO ontology at '" + file
                                         + "' (resolving to '"
                                         + new File(file).getAbsolutePath()
                                         + "'");
                     } catch (IOException e) {
                         throw new RutaParseException(
-                                "could not parse OBO ontology at '" + file
+                                "could not parse (R)OBO ontology at '" + file
                                         + "' (resolving to '"
                                         + new File(file).getAbsolutePath()
                                         + "'");
@@ -151,7 +152,7 @@ public class OntoActionExtension implements IRutaActionExtension {
                         idFieldName = get(args, 2);
                     } else {
                         throw new RutaParseException(
-                                "For OBO file types, ONTO should have 3 arguments with the format ONTO('myfile.obo', MyAnnotationClass, 'idFieldName')");
+                                "For (R)OBO file types, ONTO should have 3 arguments with the format ONTO('myfile.obo', MyAnnotationClass, 'idFieldName')");
                     }
                     Map<IStringExpression, INumberExpression> map = new HashMap<>();
                     map.put(new SimpleStringExpression(idFieldName),
@@ -169,7 +170,7 @@ public class OntoActionExtension implements IRutaActionExtension {
 
                 } else {
                     throw new RutaParseException(
-                            "ONTO acccepts as arguments AnnotationClass File, where File should be of type 'txt', 'csv' or 'obo', but you provided '"
+                            "ONTO acccepts as arguments AnnotationClass File, where File should be of type 'txt', 'csv' 'obo' or 'robo', but you provided '"
                                     + file + "'");
                 }
             }

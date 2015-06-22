@@ -90,6 +90,27 @@ public class OntoActionExtensionTest {
                 serotonine.getFeatureValueAsString(serotonine.getType()
                         .getFeatureByBaseName("ontologyId")));
     }
+    @Test
+    public void testRobo() throws Exception {
+        
+        JCas jCas = JCasFactory.createJCas();
+        jCas.setDocumentText("A regularly bbb");
+        
+        String script = ""
+                + "PACKAGE org.apache.uima.ruta.type.tag;\n" //
+                + "DECLARE Annotation Neurotransmitter(STRING ontologyId);\n"
+                + "Document{->ONTO(\"hbp_electrophysiology_ontology.robo\", Neurotransmitter, \"ontologyId\")};";
+        
+        Ruta.apply(jCas.getCas(), script, parameters);
+        
+        Collection<TOP> nt = select(jCas, "Neurotransmitter");
+        assertEquals(1, nt.size());
+        // for (TOP n : nt) { System.out.println(n); }
+        TOP serotonine = nt.iterator().next();
+        assertEquals("HBP_EPHYS_PHENO:0000001",
+                serotonine.getFeatureValueAsString(serotonine.getType()
+                        .getFeatureByBaseName("ontologyId")));
+    }
 
     public static Collection<TOP> select(JCas jCas, String shortName) {
         List<TOP> ret = new ArrayList<>();
