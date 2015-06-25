@@ -48,8 +48,14 @@ public final class OntologyTerm {
                 continue;
             Matcher m = tagValuePattern.matcher(line);
             m.matches();
-            String tag = m.group(1);
-            String val = m.group(2);
+            String tag=null;
+            String val=null;
+            try {
+                tag = m.group(1);
+                val = m.group(2);
+            } catch (Exception e) {
+                throw new IllegalArgumentException("illegal format for line '"+line+"'");
+            }
             Matcher c = commentPattern.matcher(val);
             // String comment = "";
             if (c.matches()) {

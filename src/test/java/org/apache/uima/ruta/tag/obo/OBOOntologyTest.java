@@ -22,4 +22,11 @@ public class OBOOntologyTest {
         assertEquals(4, onto.getTerms().size());
     }
 
+    @Test(expected=IllegalArgumentException.class)
+    public void testInvalidFormat() throws Exception {
+
+        InputStream is = OBOOntologyTest.class
+                .getResourceAsStream("/invalid_ontology.obo");
+        new OBOOntology().read(is);
+    }
 }
