@@ -33,6 +33,32 @@ public class RoboExpanderTest {
         }
     }
 
+    @Test
+    public void testXeger2() {
+
+        String regex = "(non[- ]?)?(spik(ing|e)|firing|bursting|stuttering|chattering|accomm?odating|adapting)";
+        for (String g : RoboExpander.expand(regex)) {
+            System.out.println(g);
+        }
+    }
+
+    @Test
+    public void testXegerLayer1() {
+
+        String regex = "layer[ -]?[Ii1]";
+        for (String g : RoboExpander.expand(regex)) {
+            System.out.println(g);
+        }
+    }
+    @Test
+    public void testXegerLayer2() {
+        
+        String regex = "layer[ -](II|ii|2)";
+        for (String g : RoboExpander.expand(regex)) {
+            System.out.println(g);
+        }
+    }
+
     static final String ELECTROPYHS_ROBO = "src/test/resources/hbp_electrophysiology_ontology.robo";
 
     @Test

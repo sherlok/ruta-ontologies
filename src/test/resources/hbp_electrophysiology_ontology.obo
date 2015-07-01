@@ -1,0 +1,213 @@
+format-version: 1.1
+data-version: 0.1
+date: 23:01:2015 15:31
+saved-by: stripathy@chibi.ubc.ca
+default-namespace: HBP_EPHYS_PHENO
+ontology: HBP Electrophysiology
+
+synonymtypedef: ALTERNATE_SPELLING "alternate spelling" EXACT
+synonymtypedef: MISSPELLING "misspelling" RELATED
+synonymtypedef: ACRONYM "acronym" BROAD
+synonymtypedef: ADJECTIVE "adjective" RELATED
+synonymtypedef: ADVERB "adverb" RELATED
+synonymtypedef: PLURAL "plural term" EXACT
+synonymtypedef: CHEMICAL_FORMULA "chemical formula" EXACT
+
+
+[TypeDef]
+id: has_effect
+name: has_effect
+def: "the behaviour of post-synaptic cell" []
+
+[Term]
+id: HBP_EPHYS_PHENO:0000001
+name: regular spiking
+rsynonym: "(regular|tonic)(ly)?"
+synonym: "regularly"
+synonym: "tonicly"
+synonym: "regular"
+synonym: "tonic"
+synonym: "RS" BROAD ACRONYM []
+
+[Term]
+id: HBP_EPHYS_PHENO:0000002
+name: fast spiking
+rsynonym: "(fast|rapid)(ly)?"
+synonym: "rapidly"
+synonym: "fast"
+synonym: "fastly"
+synonym: "rapid"
+synonym: "FS" BROAD ACRONYM []
+
+[Term]
+id: HBP_EPHYS_PHENO:0000003
+name: irregular spiking
+rsynonym: "(irregular)(ly)?"
+synonym: "irregularly"
+synonym: "irregular"
+synonym: "IS" BROAD ACRONYM []
+
+[Term]
+id: HBP_EPHYS_PHENO:0000004
+name: late spiking
+rsynonym: "(late|delay|delayed)"
+synonym: "delayed"
+synonym: "late"
+synonym: "delay"
+synonym: "LS" BROAD ACRONYM []
+
+[Term]
+id: HBP_EPHYS_PHENO:0000005
+name: low threshold spiking
+rsynonym: "(low[- ]threshold)"
+synonym: "low-threshold"
+synonym: "low threshold"
+synonym: "LTS" BROAD ACRONYM []
+
+[Term]
+id: HBP_EPHYS_PHENO:0000006
+name: chattering firing
+rsynonym: "(chatter(ing)?)"
+synonym: "chatter"
+synonym: "chattering"
+synonym: chattering
+
+[Term]
+id: HBP_EPHYS_PHENO:0000007
+name: stuttering firing
+rsynonym: "(stutter(ing)?)"
+synonym: "stutter"
+synonym: "stuttering"
+synonym: stuttering
+synonym: "STUT" BROAD ACRONYM []
+
+[Term]
+id: HBP_EPHYS_PHENO:0000008
+name: spontaneous spiking
+rsynonym: "(spontaneous(ly)?)"
+synonym: "spontaneous"
+synonym: "spontaneously"
+
+[Term]
+id: HBP_EPHYS_PHENO:0000009
+name: continuous spiking
+rsynonym: "(continous(ly)?)"
+synonym: "continously"
+synonym: "continous"
+
+[Term]
+id: HBP_EPHYS_PHENO:0000010
+name: burst spiking
+rsynonym: "(burst(ing)?)"
+synonym: "bursting"
+synonym: "burst"
+
+[Term]
+id: HBP_EPHYS_PHENO:0000011
+name: intrinsic spiking
+rsynonym: "(intrinsic(ally)?)"
+synonym: "intrinsic"
+synonym: "intrinsically"
+
+[Term]
+id: HBP_EPHYS_PHENO:0000012
+name: slow spiking
+rsynonym: "(slow)(ly)?"
+synonym: "slowly"
+synonym: "slow"
+
+[Term]
+id: HBP_EPHYS_PHENO:0000013
+name: accommodating firing
+rsynonym: "(accommodating)"
+synonym: "accommodating"
+synonym: "accomodating" RELATED MISSPELLING []
+
+[Term]
+id: HBP_EPHYS_PHENO:0000014
+name: non-accommodating firing
+rsynonym: "(non|not|un)[- ]?(accomodating)"
+synonym: "non accomodating"
+synonym: "unaccomodating"
+synonym: "not accomodating"
+synonym: "nonaccomodating"
+synonym: "notaccomodating"
+synonym: "not-accomodating"
+synonym: "un-accomodating"
+synonym: "un accomodating"
+synonym: "non-accomodating"
+disjoint_from: HBP_EPHYS_PHENO:0000013 ! accommodating
+
+[Term]
+id: HBP_EPHYS_PHENO:0000015
+name: adapting firing
+rsynonym: "(adapting)"
+synonym: "adapting"
+
+[Term]
+id: HBP_EPHYS_PHENO:0000016
+name: nonadapting firing
+rsynonym: "(non|not|un)[- ]?(adapting)"
+synonym: "un-adapting"
+synonym: "non adapting"
+synonym: "not-adapting"
+synonym: "non-adapting"
+synonym: "not adapting"
+synonym: "un adapting"
+synonym: "notadapting"
+synonym: "unadapting"
+synonym: "nonadapting"
+disjoint_from: HBP_EPHYS_PHENO:0000015 ! adapting
+
+[Term]
+id: HBP_EPHYS_PHENO:0000016
+name: classical firing
+rsynonym: "(classical(ly)?)"
+synonym: "classical"
+synonym: "classically"
+disjoint_from: HBP_EPHYS_PHENO:0000015 ! adapting
+
+[Term]
+id: HBP_EPHYS_PHENO:0000017
+name: non-fast spiking
+rsynonym: "(non|not|un)[- ]?(fast|rapid)(ly)?"
+synonym: "nonfast"
+synonym: "un-fast"
+synonym: "notfast"
+synonym: "notrapid"
+synonym: "un-rapid"
+synonym: "nonrapidly"
+synonym: "notrapidly"
+synonym: "not-rapidly"
+synonym: "nonfastly"
+synonym: "un fast"
+synonym: "non rapid"
+synonym: "non fast"
+synonym: "non-rapid"
+synonym: "non-fast"
+synonym: "unrapid"
+synonym: "not-fastly"
+synonym: "not fast"
+synonym: "un rapidly"
+synonym: "not-rapid"
+synonym: "non-fastly"
+synonym: "not rapidly"
+synonym: "un-fastly"
+synonym: "notfastly"
+synonym: "not rapid"
+synonym: "un fastly"
+synonym: "unfast"
+synonym: "non rapidly"
+synonym: "un-rapidly"
+synonym: "not fastly"
+synonym: "unfastly"
+synonym: "nonrapid"
+synonym: "not-fast"
+synonym: "non-rapidly"
+synonym: "unrapidly"
+synonym: "un rapid"
+synonym: "non fastly"
+
+! Potentially todo - SJT
+!hyperpolarized
+!depolarized
