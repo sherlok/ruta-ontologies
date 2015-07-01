@@ -20,20 +20,23 @@ For CSV file types, `ONTO` should have the format `ONTO('myfile.csv', MyAnnotati
     Document{ -> ONTO("animals.csv", Animal, "color")};
 
 
+## ROBO file format
 
-## Some OBO Ontologies
+So as to improve the management of synonyms in an ontology, we propose an enhanced version of the OBO format called _ROBO_ (for regular-expression OBO). ROBO allows to specify synonyms through compact regular expressions, thus improving the expressiveness and compactness of the ontology. For example, the synonyms for the layer two of the neocortex:
 
+    [Term]
+    id: LAYER:001
+    name: layer 2
+    synonym: "layer-2"
+    synonym: "layer 2"
+    synonym: "layer-II"
+    synonym: "layer II"
+    synonym: "layer-ii"
+    synonym: "layer ii"
 
-### [some NS-relevant OWL and OBO ontologies](https://bbpteam.epfl.ch/project/spaces/display/NLP/OBO)
+can be written in ROBO as a single regular expression:
 
-* [Relation ontology](http://www.obofoundry.org/cgi-bin/detail.cgi?id=ro)
-    * http://obo-relations.googlecode.com/svn/trunk/src/ontology/ro.obo
-    * http://obo-relations.googlecode.com/svn/trunk/src/ontology/ro.owl
-* [Subcellular anatomy ontology](http://www.obofoundry.org/cgi-bin/detail.cgi?id=sao)
-    * http://ccdb.ucsd.edu/SAO/1.2/SAO.owl
-* [Biological Spatial Ontology](http://www.obofoundry.org/cgi-bin/detail.cgi?id=spatial)
-    * https://biological-spatial-ontology.googlecode.com/svn/trunk/src/ontology/bspo.obo
-* [Ontology for biomedical investigations](http://www.obofoundry.org/cgi-bin/detail.cgi?id=obi)
-    * http://www.berkeleybop.org/ontologies/obi.obo
-* [Neuroscience methods ontology](https://github.com/tgbugs/methodsOntology)
-    * https://github.com/tgbugs/methodsOntology/blob/master/ns_methods.obo 
+    [Term] 
+    id: LAYER:001
+    name: layer 2
+    rsynonym: "layer[ -](II|ii|2)"
