@@ -1,0 +1,48 @@
+format-version: 1.2
+data-version: 0.1
+date: 23:01:2015 15:31
+default-namespace: HBP_NEUROTRANSMITTER
+ontology: HBP Neurotransmitter
+
+synonymtypedef: ALTERNATE_SPELLING "alternate spelling" EXACT
+synonymtypedef: MISSPELLING "misspelling" RELATED
+synonymtypedef: ACRONYM "acronym" BROAD
+synonymtypedef: ADJECTIVE "adjective" RELATED
+synonymtypedef: ADVERB "adverb" RELATED
+synonymtypedef: PLURAL "plural term" EXACT
+synonymtypedef: CHEMICAL_FORMULA "chemical formula" EXACT
+
+
+[TypeDef]
+id: has_effect
+name: has_effect
+def: "the behaviour of post-synaptic cell" []
+
+
+
+[Term]
+id: HBP_NEUROTRANSMITTER:0000001
+name: serotonin
+rsynonym: "serotonine(rgic)?"
+synonym: "serotonergic" RELATED ADJECTIVE []
+
+
+[Term]
+id: HBP_NEUROTRANSMITTER:0000003
+name: gaba
+has_effect: inhibitory
+synonym: "gabaergic" RELATED ADJECTIVE []
+synonym: "GABAergic" RELATED ADJECTIVE []
+synonym: "GABA" BROAD ACRONYM []
+
+[Term]
+id: HBP_NEUROTRANSMITTER:0000004
+name: glutamate
+has_effect: exhibitatory
+synonym: "glutamic acid" []
+synonym: "2-Aminopentanedioic acid" []
+synonym: "2-aminoglutaric acid" []
+synonym: "glutamatergic" RELATED ADJECTIVE []
+synonym: "Glu" BROAD ACRONYM []
+synonym: "glutamates" EXACT PLURAL []
+def: "An α-amino acid that is glutaric acid bearing a single amino substituent at position 2." [CHEBI:18237]

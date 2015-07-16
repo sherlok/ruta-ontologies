@@ -9,7 +9,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.uima.ruta.RutaBlock;
 import org.apache.uima.ruta.RutaStatement;
+import org.apache.uima.ruta.engine.RutaEngine;
 import org.apache.uima.ruta.expression.resource.WordTableExpression;
 import org.apache.uima.ruta.resource.RutaResourceLoader;
 import org.apache.uima.ruta.resource.RutaTable;
@@ -70,13 +72,20 @@ public class OboWordTable extends WordTableExpression {
             }
         }
 
-        // FIXME below is copied from CSVTable :-( --> ask to make fields protected
+        // FIXME below copied from CSVTable :-( --> ask to make fields protected
 
-        public RutaWordList getWordList(int index) {
+        public RutaWordList getWordList(int index, RutaBlock parent) {
             RutaWordList list = columnWordLists.get(index);
             if (list == null) {
                 if (index > 0 && index <= tableData.get(0).size()) {
-                    list = new TreeWordList(getColumnData(index - 1));
+                    Boolean dictRemoveWS = (Boolean) parent.getContext()
+                            .getConfigParameterValue(
+                                    RutaEngine.PARAM_DICT_REMOVE_WS);
+                    if (dictRemoveWS == null) {
+                        dictRemoveWS = false;
+                    }
+                    list = new TreeWordList(getColumnData(index - 1),
+                            dictRemoveWS);
                     columnWordLists.put(index, list);
                 }
             }
@@ -104,6 +113,14 @@ public class OboWordTable extends WordTableExpression {
             int i = 0;
             for (String string : columnData) {
                 if (string.toLowerCase().equals(value.toLowerCase())) {
+                    return tableData.get(i);
+                }
+                i++;
+            }
+            i = 0;
+            for (String string : columnData) {
+                if (string.toLowerCase().replaceAll("\\s", "")
+                        .equals(value.toLowerCase())) {
                     return tableData.get(i);
                 }
                 i++;

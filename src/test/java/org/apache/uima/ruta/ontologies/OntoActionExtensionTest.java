@@ -34,7 +34,7 @@ public class OntoActionExtensionTest {
         String script = ""
                 + "PACKAGE org.apache.uima.ruta.type;\n" //
                 + "DECLARE RutaColoring;\n"
-                + "Document{->ONTO(\"colors.txt\", RutaColoring)};";
+                + "ONTO(\"colors.txt\", RutaColoring);";
 
         Ruta.apply(jCas.getCas(), script, parameters);
 
@@ -53,8 +53,8 @@ public class OntoActionExtensionTest {
 
         String script = ""
                 + "PACKAGE org.apache.uima.ruta.type.tag;\n" //
-                + "DECLARE Annotation Animal(STRING color, STRING species);\n"
-                + "Document{->ONTO(\"animals.csv\", Animal, \"color\")};";
+                + "DECLARE Animal(STRING color, STRING species);\n"
+                + "ONTO(\"animals.csv\", Animal, \"color\");";
 
         Ruta.apply(jCas.getCas(), script, parameters);
 
@@ -72,44 +72,27 @@ public class OntoActionExtensionTest {
     @Test
     public void testObo() throws Exception {
 
-        JCas jCas = JCasFactory.createJCas();
-        jCas.setDocumentText("A serotonergic and glutamate neuron");
+        for (String extension : new String[] { "obo", "robo" }) {
 
-        String script = ""
-                + "PACKAGE org.apache.uima.ruta.type.tag;\n" //
-                + "DECLARE Annotation Neurotransmitter(STRING ontologyId);\n"
-                + "Document{->ONTO(\"hbp_neurotransmitter_ontology.obo\", Neurotransmitter, \"ontologyId\")};";
+            JCas jCas = JCasFactory.createJCas();
+            jCas.setDocumentText("A serotoninergic and glutamate neuron");
 
-        Ruta.apply(jCas.getCas(), script, parameters);
+            String script = ""
+                    + "PACKAGE org.apache.uima.ruta.type.tag;\n" //
+                    + "DECLARE Neurotransmitter(STRING ontologyId);\n"
+                    + "ONTO(\"hbp_neurotransmitter_ontology." + extension
+                    + "\", Neurotransmitter, \"ontologyId\");";
 
-        Collection<TOP> nt = select(jCas, "Neurotransmitter");
-        assertEquals(2, nt.size());
-        // for (TOP n : nt) { System.out.println(n); }
-        TOP serotonine = nt.iterator().next();
-        assertEquals("HBP_NEUROTRANSMITTER:0000001",
-                serotonine.getFeatureValueAsString(serotonine.getType()
-                        .getFeatureByBaseName("ontologyId")));
-    }
-    @Test
-    public void testRobo() throws Exception {
-        
-        JCas jCas = JCasFactory.createJCas();
-        jCas.setDocumentText("A regularly bbb");
-        
-        String script = ""
-                + "PACKAGE org.apache.uima.ruta.type.tag;\n" //
-                + "DECLARE Annotation Neurotransmitter(STRING ontologyId);\n"
-                + "Document{->ONTO(\"hbp_electrophysiology_ontology.robo\", Neurotransmitter, \"ontologyId\")};";
-        
-        Ruta.apply(jCas.getCas(), script, parameters);
-        
-        Collection<TOP> nt = select(jCas, "Neurotransmitter");
-        assertEquals(1, nt.size());
-        // for (TOP n : nt) { System.out.println(n); }
-        TOP serotonine = nt.iterator().next();
-        assertEquals("HBP_EPHYS_PHENO:0000001",
-                serotonine.getFeatureValueAsString(serotonine.getType()
-                        .getFeatureByBaseName("ontologyId")));
+            Ruta.apply(jCas.getCas(), script, parameters);
+
+            Collection<TOP> nt = select(jCas, "Neurotransmitter");
+            assertEquals(2, nt.size());
+            // for (TOP n : nt) { System.out.println(n); }
+            TOP serotonine = nt.iterator().next();
+            assertEquals("HBP_NEUROTRANSMITTER:0000001",
+                    serotonine.getFeatureValueAsString(serotonine.getType()
+                            .getFeatureByBaseName("ontologyId")));
+        }
     }
 
     public static Collection<TOP> select(JCas jCas, String shortName) {
