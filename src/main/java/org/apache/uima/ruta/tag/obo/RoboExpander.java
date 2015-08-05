@@ -38,7 +38,7 @@ import nl.flotsam.xeger.Xeger;
  */
 public class RoboExpander {
 
-    public static OBOOntology expand(File oboFile) throws IOException {
+    public static OBOOntology expand(File oboFile) throws IOException, OboFormatException {
         return expand(new FileInputStream(oboFile));
     }
 
@@ -48,7 +48,7 @@ public class RoboExpander {
      * @param is
      *            The .obo file inputstream to read.
      */
-    public static OBOOntology expand(InputStream is) throws IOException {
+    public static OBOOntology expand(InputStream is) throws IOException, OboFormatException {
         return expand(new OBOOntology().read(is));
     }
 

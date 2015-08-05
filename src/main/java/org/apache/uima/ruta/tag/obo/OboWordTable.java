@@ -48,6 +48,9 @@ public class OboWordTable extends WordTableExpression {
             } catch (IOException e) {
                 throw new RuntimeException("Error reading obo file "
                         + resource.getFilename(), e);
+            } catch (OboFormatException e) {
+                throw new RuntimeException("OBO format error: "
+                        + resource.getFilename(), e);
             }
         }
     }

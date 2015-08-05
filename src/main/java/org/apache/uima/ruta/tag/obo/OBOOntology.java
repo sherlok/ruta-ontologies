@@ -35,7 +35,8 @@ public class OBOOntology {
      * @param is
      *            The .obo file inputstream to read.
      */
-    public OBOOntology read(InputStream is) throws IOException {
+    public OBOOntology read(InputStream is) throws IOException,
+            OboFormatException {
         try {
             read(new BufferedReader(new InputStreamReader(is, "UTF-8")));
         } finally {
@@ -48,7 +49,7 @@ public class OBOOntology {
      * @param url
      *            The obo URL to read from
      */
-    public OBOOntology read(URL url) throws IOException {
+    public OBOOntology read(URL url) throws IOException, OboFormatException {
         return read(url.openStream());
     }
 
@@ -58,11 +59,11 @@ public class OBOOntology {
      * @param f
      *            The .obo file to read.
      */
-    public OBOOntology read(File f) throws IOException {
+    public OBOOntology read(File f) throws IOException, OboFormatException {
         return read(new FileInputStream(f));
     }
 
-    void read(BufferedReader br) throws IOException {
+    void read(BufferedReader br) throws IOException, OboFormatException {
         List<String> termLines = new ArrayList<String>();
         boolean inTerm = false;
         String line = br.readLine();
@@ -88,7 +89,7 @@ public class OBOOntology {
         }
     }
 
-    private void handleTerm(List<String> lines) {
+    private void handleTerm(List<String> lines) throws OboFormatException {
         OntologyTerm term = new OntologyTerm(lines);
         terms.put(term.getId(), term);
         indexTerm(term);

@@ -1,7 +1,6 @@
 package org.apache.uima.ruta.ontologies;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -14,7 +13,6 @@ import org.apache.uima.fit.util.JCasUtil;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.cas.TOP;
 import org.apache.uima.ruta.engine.Ruta;
-import org.apache.uima.ruta.type.RutaColoring;
 import org.junit.Test;
 
 public class OntoActionExtensionTest {
@@ -23,50 +21,6 @@ public class OntoActionExtensionTest {
     static {
         parameters.put("additionalExtensions",
                 new String[] { OntoActionExtension.class.getName() });
-    }
-
-    @Test
-    public void testTxt() throws Exception {
-
-        JCas jCas = JCasFactory.createJCas();
-        jCas.setDocumentText("The red fox jumps over the blue fence");
-
-        String script = ""
-                + "PACKAGE org.apache.uima.ruta.type;\n" //
-                + "DECLARE RutaColoring;\n"
-                + "ONTO(\"colors.txt\", RutaColoring);";
-
-        Ruta.apply(jCas.getCas(), script, parameters);
-
-        Collection<RutaColoring> colors = JCasUtil.select(jCas,
-                RutaColoring.class);
-        assertEquals("red & blue", 2, colors.size());
-        assertEquals("same, but using the convenience method", 2,
-                select(jCas, "RutaColoring").size());
-    }
-
-    @Test
-    public void testCsv() throws Exception {
-
-        JCas jCas = JCasFactory.createJCas();
-        jCas.setDocumentText("The red fox jumps over the blue fence");
-
-        String script = ""
-                + "PACKAGE org.apache.uima.ruta.type.tag;\n" //
-                + "DECLARE Animal(STRING color, STRING species);\n"
-                + "ONTO(\"animals.csv\", Animal, \"color\");";
-
-        Ruta.apply(jCas.getCas(), script, parameters);
-
-        Collection<TOP> animals = select(jCas, "Animal");
-        assertEquals(1, animals.size());
-        TOP fox = animals.iterator().next();
-        assertEquals(
-                "brown",
-                fox.getFeatureValueAsString(fox.getType().getFeatureByBaseName(
-                        "color")));
-        assertNull(fox.getFeatureValueAsString(fox.getType()
-                .getFeatureByBaseName("species")));
     }
 
     @Test
@@ -92,6 +46,29 @@ public class OntoActionExtensionTest {
             assertEquals("HBP_NEUROTRANSMITTER:0000001",
                     serotonine.getFeatureValueAsString(serotonine.getType()
                             .getFeatureByBaseName("ontologyId")));
+        }
+    }
+
+    @Test
+    public void testOboIgnoreLength() throws Exception {
+
+        for (int ignoreLength : new int[] { 2, 3, 4, 5, 6 }) {
+
+            JCas jCas = JCasFactory.createJCas();
+            jCas.setDocumentText("a GaBA neuron");
+
+            String script = ""
+                    + "PACKAGE org.apache.uima.ruta.type.tag;\n" //
+                    + "DECLARE Neurotransmitter(STRING ontologyId);\n"
+                    + "ONTO(\"hbp_neurotransmitter_ontology.obo"
+                    + "\", Neurotransmitter, \"ontologyId\", " + ignoreLength
+                    + ");";
+
+            Ruta.apply(jCas.getCas(), script, parameters);
+
+            Collection<TOP> nt = select(jCas, "Neurotransmitter");
+            System.out.println(nt.size());// +" "+nt.iterator().next()); FIXME
+
         }
     }
 
