@@ -45,15 +45,44 @@ public class RoboExpanderTest {
     @Test
     public void testXegerLayer1() {
 
-        String regex = "layer[ -]?[Ii1]";
+        String regex = "[Ll]ayer[- ]?[1I]";
         for (String g : RoboExpander.expand(regex)) {
             System.out.println(g);
         }
     }
+
     @Test
     public void testXegerLayer2() {
-        
+
         String regex = "layer[ -](II|ii|2)";
+        for (String g : RoboExpander.expand(regex)) {
+            System.out.println(g);
+        }
+    }
+
+    @Test
+    public void testXegerL1_2() {
+
+        String regex = "[Ll](1[-/]2|I[-/]II)";
+        for (String g : RoboExpander.expand(regex)) {
+            System.out.println(g);
+        }
+    }
+
+    @Test
+    public void testXegerLayer3a() {
+
+        // TOO MUCH String regex = "[Ll](ayer)?[- ]?(3|iii|III) ?[Aa]";
+        String regex = "[Ll]ayer[- ]?(3|iii|III) ?[Aa]";
+        for (String g : RoboExpander.expand(regex)) {
+            System.out.println(g);
+        }
+    }
+
+    @Test
+    public void testXegerLayer3_4() {
+
+        String regex = "[Ll](ayers?)? (3[-/]4|III[-/]IV)";
         for (String g : RoboExpander.expand(regex)) {
             System.out.println(g);
         }
@@ -65,6 +94,14 @@ public class RoboExpanderTest {
     public void testElectrophys() throws Exception {
         RoboExpander.expand(new File(ELECTROPYHS_ROBO), new File(
                 "src/test/resources/hbp_electrophysiology_ontology.obo"));
+    }
+
+    @Test
+    public void testLayers() throws Exception {
+        RoboExpander
+                .expand(new File(
+                        "/Volumes/HDD2/ren_data/dev_hdd/bluebrain/git2/neuroNER/resources/bluima/neuroner/hbp_layer_ontology.robo"),
+                        new File("target/layers.obo"));
     }
 
     @Test

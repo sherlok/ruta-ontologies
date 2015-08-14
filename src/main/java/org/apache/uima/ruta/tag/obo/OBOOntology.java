@@ -399,4 +399,13 @@ public class OBOOntology {
     public Map<String, OntologyTerm> getTerms() {
         return terms;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (OntologyTerm t : terms.values()) {
+            sb.append(t + "\n");
+        }
+        return sb.toString();
+    }
 }

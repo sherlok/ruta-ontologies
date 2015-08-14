@@ -73,7 +73,7 @@ public final class OntologyTerm {
             }
             // System.out.println(tag + " -> " + val + " -> " + qualifiers);
             if (tag.equals("id")) {
-                id = val;
+                id = val.trim();
             } else if (tag.equals("name")) {
                 if (name != null) {
                     throw new OboFormatException(

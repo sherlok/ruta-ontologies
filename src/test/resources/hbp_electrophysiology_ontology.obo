@@ -23,8 +23,8 @@ def: "the behaviour of post-synaptic cell" []
 id: HBP_EPHYS_PHENO:0000001
 name: regular spiking
 rsynonym: "(regular|tonic)(ly)?"
-synonym: "tonicly"
 synonym: "regularly"
+synonym: "tonicly"
 synonym: "regular"
 synonym: "tonic"
 synonym: "RS" BROAD ACRONYM []
@@ -35,8 +35,8 @@ name: fast spiking
 rsynonym: "(fast|rapid)(ly)?"
 synonym: "rapidly"
 synonym: "fast"
-synonym: "fastly"
 synonym: "rapid"
+synonym: "fastly"
 synonym: "FS" BROAD ACRONYM []
 
 [Term]
@@ -106,8 +106,8 @@ synonym: "burst"
 id: HBP_EPHYS_PHENO:0000011
 name: intrinsic spiking
 rsynonym: "(intrinsic(ally)?)"
-synonym: "intrinsically"
 synonym: "intrinsic"
+synonym: "intrinsically"
 
 [Term]
 id: HBP_EPHYS_PHENO:0000012
@@ -133,8 +133,8 @@ synonym: "not accomodating"
 synonym: "nonaccomodating"
 synonym: "notaccomodating"
 synonym: "not-accomodating"
-synonym: "un-accomodating"
 synonym: "un accomodating"
+synonym: "un-accomodating"
 synonym: "non-accomodating"
 disjoint_from: HBP_EPHYS_PHENO:0000013 ! accommodating
 
@@ -175,19 +175,19 @@ synonym: "nonfast"
 synonym: "un-fast"
 synonym: "notfast"
 synonym: "notrapid"
-synonym: "nonrapidly"
 synonym: "un-rapid"
+synonym: "nonrapidly"
 synonym: "notrapidly"
 synonym: "not-rapidly"
 synonym: "nonfastly"
-synonym: "un fast"
 synonym: "non rapid"
+synonym: "un fast"
 synonym: "non fast"
 synonym: "non-fast"
 synonym: "non-rapid"
 synonym: "unrapid"
-synonym: "not-fastly"
 synonym: "not fast"
+synonym: "not-fastly"
 synonym: "un rapidly"
 synonym: "not-rapid"
 synonym: "non-fastly"
@@ -198,8 +198,8 @@ synonym: "not rapid"
 synonym: "un fastly"
 synonym: "unfast"
 synonym: "non rapidly"
-synonym: "not fastly"
 synonym: "un-rapidly"
+synonym: "not fastly"
 synonym: "unfastly"
 synonym: "nonrapid"
 synonym: "not-fast"
