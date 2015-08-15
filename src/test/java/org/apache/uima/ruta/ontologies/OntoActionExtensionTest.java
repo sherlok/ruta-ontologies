@@ -13,6 +13,7 @@ import org.apache.uima.fit.util.JCasUtil;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.cas.TOP;
 import org.apache.uima.ruta.engine.Ruta;
+import org.apache.uima.ruta.type.DebugScriptApply;
 import org.junit.Test;
 
 public class OntoActionExtensionTest {
@@ -47,6 +48,40 @@ public class OntoActionExtensionTest {
                     serotonine.getFeatureValueAsString(serotonine.getType()
                             .getFeatureByBaseName("ontologyId")));
         }
+    }
+
+    @Test
+    public void testOboLayers() throws Exception {
+
+        for (String layer : new String[] { "layer 4", "L4", "LayerIV",
+                "layerIV", "layer 1/2", "layer 2/3", "layer 3/4", "layer 5-6" }) {
+            JCas jCas = JCasFactory.createJCas();
+            jCas.setDocumentText(layer);
+
+            String script = ""
+                    + "PACKAGE org.apache.uima.ruta.type.tag;\n" //
+                    + "DECLARE Neurotransmitter(STRING ontologyId);\n"
+                    + "ONTO(\"hbp_layer_ontology.robo\", Neurotransmitter, \"ontologyId\");";
+
+            Ruta.apply(jCas.getCas(), script, parameters);
+
+            Collection<TOP> nt = select(jCas, "Neurotransmitter");
+            assertEquals("for " + layer, 1, nt.size());
+        }
+    }
+
+    @Test
+    public void testMarkfast() throws Exception {
+
+        JCas jCas = JCasFactory.createJCas();
+        jCas.setDocumentText("abcd");
+
+        Ruta.apply(jCas.getCas(),
+                "MARKFAST(DebugScriptApply, 'testMarkfastLayers.txt', true, 4, false);");
+        // note: DebugScriptApply is a dummy annot
+
+        assertEquals(1, JCasUtil.select(jCas, DebugScriptApply.class).size());
+
     }
 
     @Test

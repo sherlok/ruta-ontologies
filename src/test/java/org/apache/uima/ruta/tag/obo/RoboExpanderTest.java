@@ -10,6 +10,7 @@ import java.util.Set;
 
 import nl.flotsam.xeger.Xeger;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class RoboExpanderTest {
@@ -97,6 +98,7 @@ public class RoboExpanderTest {
     }
 
     @Test
+    @Ignore
     public void testLayers() throws Exception {
         RoboExpander
                 .expand(new File(

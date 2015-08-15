@@ -12,6 +12,7 @@ import java.util.Map;
 import org.apache.uima.ruta.RutaElement;
 import org.apache.uima.ruta.action.AbstractRutaAction;
 import org.apache.uima.ruta.action.ActionFactory;
+import org.apache.uima.ruta.action.MarkTableAction;
 import org.apache.uima.ruta.expression.RutaExpression;
 import org.apache.uima.ruta.expression.bool.SimpleBooleanExpression;
 import org.apache.uima.ruta.expression.number.ComposedNumberExpression;
@@ -38,6 +39,8 @@ public class OntoActionExtension implements IRutaActionExtension {
     public final static String EXTENSION_KEYWORD = "ONTO";
     public final static SimpleBooleanExpression TRUE = new SimpleBooleanExpression(
             true);
+    public final static SimpleBooleanExpression FALSE = new SimpleBooleanExpression(
+            false);
     private final Class<?>[] extensions = new Class[] {};
 
     private String typeString;
@@ -139,10 +142,12 @@ public class OntoActionExtension implements IRutaActionExtension {
                 IStringExpression ignoreChar = new SimpleStringExpression("");
                 INumberExpression maxIgnoreChar = new SimpleNumberExpression(0);
 
-                return ActionFactory.createMarkTableAction(te, index, table,
-                        featuresMap, TRUE, ignoreLength, ignoreChar,
-                        maxIgnoreChar, null);
-
+                MarkTableAction mta = (MarkTableAction) ActionFactory
+                        .createMarkTableAction(te, index, table, featuresMap,
+                                TRUE, ignoreLength, ignoreChar, maxIgnoreChar,
+                                null);
+                mta.setIgnoreWS(FALSE); // do not ignore whitespace in resources
+                return mta;
             }
         }
     }
