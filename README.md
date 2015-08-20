@@ -1,5 +1,9 @@
 # Ontology support for Apache Ruta
 
+[![](https://img.shields.io/github/release/sherlok/ruta-ontologies.svg?label=JitPack)](https://jitpack.io/#sherlok/ruta-ontologies/)
+
+
+
 ## ONTO keyword
 
 Extends the [Apache Ruta language](https://uima.apache.org/d/ruta-current/tools.ruta.book.html) with an `ONTO` keyword.
