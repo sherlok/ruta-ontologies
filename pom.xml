@@ -15,10 +15,10 @@
 
   <dependencies>
     <dependency>
-      <groupId>org.apache.uima</groupId>
-      <artifactId>ruta-core</artifactId>
-      <version>2.3.0</version>
-    </dependency>
+	    <groupId>com.github.renaud</groupId>
+	    <artifactId>ruta-core</artifactId>
+	    <version>337dbabc66</version><!-- hack to be able to use 2.3.1 -->
+	</dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-collections4</artifactId>

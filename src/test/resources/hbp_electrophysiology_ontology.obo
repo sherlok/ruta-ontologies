@@ -68,8 +68,8 @@ synonym: "LTS" BROAD ACRONYM []
 id: HBP_EPHYS_PHENO:0000006
 name: chattering firing
 rsynonym: "(chatter(ing)?)"
-synonym: "chatter"
 synonym: "chattering"
+synonym: "chatter"
 synonym: chattering
 
 [Term]
@@ -133,8 +133,8 @@ synonym: "not accomodating"
 synonym: "nonaccomodating"
 synonym: "notaccomodating"
 synonym: "not-accomodating"
-synonym: "un-accomodating"
 synonym: "un accomodating"
+synonym: "un-accomodating"
 synonym: "non-accomodating"
 disjoint_from: HBP_EPHYS_PHENO:0000013 ! accommodating
 
@@ -186,20 +186,20 @@ synonym: "non fast"
 synonym: "non-fast"
 synonym: "non-rapid"
 synonym: "unrapid"
-synonym: "not-fastly"
 synonym: "not fast"
+synonym: "not-fastly"
 synonym: "un rapidly"
 synonym: "not-rapid"
 synonym: "non-fastly"
-synonym: "un-fastly"
 synonym: "not rapidly"
+synonym: "un-fastly"
 synonym: "notfastly"
 synonym: "un fastly"
 synonym: "not rapid"
 synonym: "unfast"
 synonym: "non rapidly"
-synonym: "not fastly"
 synonym: "un-rapidly"
+synonym: "not fastly"
 synonym: "unfastly"
 synonym: "nonrapid"
 synonym: "not-fast"
