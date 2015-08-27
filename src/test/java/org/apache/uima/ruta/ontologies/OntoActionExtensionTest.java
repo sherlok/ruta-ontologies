@@ -12,6 +12,7 @@ import org.apache.uima.fit.factory.JCasFactory;
 import org.apache.uima.fit.util.JCasUtil;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.cas.TOP;
+import org.apache.uima.jcas.tcas.Annotation;
 import org.apache.uima.ruta.engine.Ruta;
 import org.apache.uima.ruta.type.DebugScriptApply;
 import org.junit.Test;
@@ -53,13 +54,16 @@ public class OntoActionExtensionTest {
     @Test
     public void testOboLayers() throws Exception {
 
-        for (String layer : new String[] { "layer 4", "L4", "LayerIV",
-                "layerIV", "layer 1/2", "layer 2/3", "layer 3/4", "layer 5-6" }) {
+        for (String layer : new String[] { "layer 7", "layer 4", "layer 3",
+                "L4", "LayerIV", "layerIV", "layer 1/2", "layer 2/3",
+                "layer 3/4", "layer 5-6" }) {
+            System.out.println("\nTESTING[" + layer + "]");
             JCas jCas = JCasFactory.createJCas();
             jCas.setDocumentText(layer);
 
             String script = ""
                     + "PACKAGE org.apache.uima.ruta.type.tag;\n" //
+                    + "RETAINTYPE(SPACE);\n" //
                     + "DECLARE Neurotransmitter(STRING ontologyId);\n"
                     + "ONTO(\"hbp_layer_ontology.robo\", Neurotransmitter, \"ontologyId\");";
 
@@ -67,6 +71,59 @@ public class OntoActionExtensionTest {
 
             Collection<TOP> nt = select(jCas, "Neurotransmitter");
             assertEquals("for " + layer, 1, nt.size());
+        }
+    }
+
+    @Test
+    public void testNeedsSynonym() throws Exception {
+
+        for (String layer : new String[] { "layer5", "bla", "L4", "LayerI2",
+                "LayerI V" }) {
+            System.out.println("\nTESTING[" + layer + "]");
+            JCas jCas = JCasFactory.createJCas();
+            jCas.setDocumentText(layer);
+
+            String script = ""
+                    + "PACKAGE org.apache.uima.ruta.type.tag;\n" //
+                    + "RETAINTYPE(SPACE);DECLARE Neurotransmitter(STRING ontologyId);\n"
+                    + "ONTO(\"hbp_layer_ontology2.robo\", Neurotransmitter, \"ontologyId\");";
+
+            Ruta.apply(jCas.getCas(), script, parameters);
+
+            Collection<TOP> nt = select(jCas, "Neurotransmitter");
+            assertEquals("for " + layer, 1, nt.size());
+            Annotation next = (Annotation) nt.iterator().next();
+            assertEquals(layer, next.getCoveredText());
+        }
+    }
+
+    @Test
+    public void testOboRegions() throws Exception {
+
+        for (String br : new String[] { "reticular nucleus of the thalamus",
+                "spinotectal pathway" }) {
+            JCas jCas = JCasFactory.createJCas();
+            jCas.setDocumentText(br);
+
+            String script = ""
+                    + "PACKAGE org.apache.uima.ruta.type.tag;\n" //
+                    + "RETAINTYPE(SPACE);\n" //
+                    + "DECLARE Neurotransmitter(STRING ontologyId);\n"
+                    + "ONTO(\"hbp_brainregions_aba-syn.obo\", Neurotransmitter, \"ontologyId\");\n"
+                    // keep longest
+                    + "(Neurotransmitter{-> UNMARK(Neurotransmitter)}){PARTOFNEQ(Neurotransmitter)};";
+
+            Ruta.apply(jCas.getCas(), script, parameters);
+
+            Collection<TOP> nt = select(jCas, "Neurotransmitter");
+            for (TOP top : nt) {
+                System.err.println(((Annotation) top).getCoveredText());
+                System.err.println(top);
+            }
+            assertEquals("for " + br, 1, nt.size());
+            Annotation annot = (Annotation) nt.iterator().next();
+            assertEquals(0, annot.getBegin());
+            assertEquals(br.length(), annot.getEnd());
         }
     }
 

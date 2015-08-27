@@ -83,7 +83,7 @@ public class RoboExpanderTest {
     @Test
     public void testXegerLayer3_4() {
 
-        String regex = "[Ll](ayers?)? (3[-/]4|III[-/]IV)";
+        String regex = "[Ll](ayers?)? ?(3[-/]4|III[-/]IV)";
         for (String g : RoboExpander.expand(regex)) {
             System.out.println(g);
         }

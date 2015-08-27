@@ -67,9 +67,11 @@ public class OboWordTable extends WordTableExpression {
                 String id = term.getId();
                 String name = term.getName();
                 if (name != null) {
+                    // /System.out.println(">>" + name);
                     tableData.add(asList(new String[] { name, id }));
                 }
                 for (Synonym s : term.getSynonyms()) {
+                    // /System.out.println(">>" + s.getSyn());
                     tableData.add(asList(new String[] { s.getSyn(), id }));
                 }
             }

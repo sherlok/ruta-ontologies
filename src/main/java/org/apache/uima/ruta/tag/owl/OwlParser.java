@@ -270,13 +270,13 @@ public class OwlParser {
     }
 
     private void saveRelation(String parentTagName, String name, String string) {
-        System.out.println(format("saveRelation %s %s %s", parentTagName, name,
-                string));
+        // TODO System.out.println(format("saveRelation %s %s %s",
+        // parentTagName, name, string));
 
     }
 
     private void saveEntity(Entity classEntity) {
-        System.out.println(format("saveEntity %s", classEntity));
+        // TODO System.out.println(format("saveEntity %s", classEntity));
 
     }
 

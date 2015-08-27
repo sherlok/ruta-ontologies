@@ -14,11 +14,19 @@
   </properties>
 
   <dependencies>
+    <!--
+   <dependency>
+      <groupId>org.apache.uima</groupId>
+      <artifactId>ruta-core</artifactId>
+      <version>2.3.2-SNAPSHOT</version>
+    </dependency>
+     -->
+    <!-- hack to be able to use 2.3.1 -->
     <dependency>
-	    <groupId>com.github.renaud</groupId>
-	    <artifactId>ruta-core</artifactId>
-	    <version>337dbabc66</version><!-- hack to be able to use 2.3.1 -->
-	</dependency>
+      <groupId>com.github.renaud</groupId>
+      <artifactId>ruta-core</artifactId>
+      <version>337dbabc66</version>
+  </dependency>
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-collections4</artifactId>
@@ -42,7 +50,7 @@
   </dependencies>
 
   <repositories>
-    <!-- JitPack builds GitHub projects on demand and publishes ready-to-use 
+    <!-- JitPack builds GitHub projects on demand and publishes ready-to-use
       packages -->
     <repository>
       <id>jitpack.io</id>
