@@ -1,6 +1,7 @@
 package org.apache.uima.ruta.ontologies;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -20,6 +21,7 @@ import org.junit.Test;
 public class OntoActionExtensionTest {
 
     static Map<String, Object> parameters = new HashMap<>();
+
     static {
         parameters.put("additionalExtensions",
                 new String[] { OntoActionExtension.class.getName() });
@@ -33,8 +35,8 @@ public class OntoActionExtensionTest {
             JCas jCas = JCasFactory.createJCas();
             jCas.setDocumentText("A serotoninergic and glutamate neuron");
 
-            String script = ""
-                    + "PACKAGE org.apache.uima.ruta.type.tag;\n" //
+            String script = "" + "PACKAGE org.apache.uima.ruta.type.tag;\n" //
+                    + "RETAINTYPE(SPACE);\n" //
                     + "DECLARE Neurotransmitter(STRING ontologyId);\n"
                     + "ONTO(\"hbp_neurotransmitter_ontology." + extension
                     + "\", Neurotransmitter, \"ontologyId\");";
@@ -61,8 +63,7 @@ public class OntoActionExtensionTest {
             JCas jCas = JCasFactory.createJCas();
             jCas.setDocumentText(layer);
 
-            String script = ""
-                    + "PACKAGE org.apache.uima.ruta.type.tag;\n" //
+            String script = "" + "PACKAGE org.apache.uima.ruta.type.tag;\n" //
                     + "RETAINTYPE(SPACE);\n" //
                     + "DECLARE Neurotransmitter(STRING ontologyId);\n"
                     + "ONTO(\"hbp_layer_ontology.robo\", Neurotransmitter, \"ontologyId\");";
@@ -83,8 +84,7 @@ public class OntoActionExtensionTest {
             JCas jCas = JCasFactory.createJCas();
             jCas.setDocumentText(layer);
 
-            String script = ""
-                    + "PACKAGE org.apache.uima.ruta.type.tag;\n" //
+            String script = "" + "PACKAGE org.apache.uima.ruta.type.tag;\n" //
                     + "RETAINTYPE(SPACE);DECLARE Neurotransmitter(STRING ontologyId);\n"
                     + "ONTO(\"hbp_layer_ontology2.robo\", Neurotransmitter, \"ontologyId\");";
 
@@ -105,8 +105,7 @@ public class OntoActionExtensionTest {
             JCas jCas = JCasFactory.createJCas();
             jCas.setDocumentText(br);
 
-            String script = ""
-                    + "PACKAGE org.apache.uima.ruta.type.tag;\n" //
+            String script = "" + "PACKAGE org.apache.uima.ruta.type.tag;\n" //
                     + "RETAINTYPE(SPACE);\n" //
                     + "DECLARE Neurotransmitter(STRING ontologyId);\n"
                     + "ONTO(\"hbp_brainregions_aba-syn.obo\", Neurotransmitter, \"ontologyId\");\n"
@@ -120,7 +119,7 @@ public class OntoActionExtensionTest {
                 System.err.println(((Annotation) top).getCoveredText());
                 System.err.println(top);
             }
-            assertEquals("for " + br, 1, nt.size());
+            assertTrue("at least a match for " + br, nt.size() > 0);
             Annotation annot = (Annotation) nt.iterator().next();
             assertEquals(0, annot.getBegin());
             assertEquals(br.length(), annot.getEnd());
@@ -149,8 +148,7 @@ public class OntoActionExtensionTest {
             JCas jCas = JCasFactory.createJCas();
             jCas.setDocumentText("a GaBA neuron");
 
-            String script = ""
-                    + "PACKAGE org.apache.uima.ruta.type.tag;\n" //
+            String script = "" + "PACKAGE org.apache.uima.ruta.type.tag;\n" //
                     + "DECLARE Neurotransmitter(STRING ontologyId);\n"
                     + "ONTO(\"hbp_neurotransmitter_ontology.obo"
                     + "\", Neurotransmitter, \"ontologyId\", " + ignoreLength

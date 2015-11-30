@@ -142,10 +142,8 @@ public class OntoActionExtension implements IRutaActionExtension {
                 IStringExpression ignoreChar = new SimpleStringExpression("");
                 INumberExpression maxIgnoreChar = new SimpleNumberExpression(0);
 
-                MarkTableAction mta = (MarkTableAction) ActionFactory
-                        .createMarkTableAction(te, index, table, featuresMap,
-                                TRUE, ignoreLength, ignoreChar, maxIgnoreChar,
-                                null);
+                MarkTableAction2 mta = new MarkTableAction2(te, index, table, featuresMap,
+                                TRUE, ignoreLength, ignoreChar, maxIgnoreChar);
                 mta.setIgnoreWS(FALSE); // do not ignore whitespace in resources
                 return mta;
             }
