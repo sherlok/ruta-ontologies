@@ -143,10 +143,11 @@ public class OntoActionExtensionTest {
     @Test
     public void testOboIgnoreLength() throws Exception {
 
-        for (int ignoreLength : new int[] { 2, 3, 4, 5, 6 }) {
+        String word = "GLUTAMATE";
+        for (int ignoreLength : new int[] { 4, 5, 6, 7, 8, 9, 10 }) {
 
             JCas jCas = JCasFactory.createJCas();
-            jCas.setDocumentText("a GaBA neuron");
+            jCas.setDocumentText(word);
 
             String script = "" + "PACKAGE org.apache.uima.ruta.type.tag;\n" //
                     + "DECLARE Neurotransmitter(STRING ontologyId);\n"
@@ -157,8 +158,11 @@ public class OntoActionExtensionTest {
             Ruta.apply(jCas.getCas(), script, parameters);
 
             Collection<TOP> nt = select(jCas, "Neurotransmitter");
-            System.out.println(nt.size());// +" "+nt.iterator().next()); FIXME
-
+            String match = nt.size() > 0 ? nt.iterator().next().toString() : "";
+            System.out.println(nt.size() + " " + match);
+            if (ignoreLength >= word.length()) {
+                assertEquals(ignoreLength +" but match.size="+nt.size(),0,nt.size() );
+            }
         }
     }
 

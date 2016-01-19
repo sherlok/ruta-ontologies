@@ -129,11 +129,11 @@ public class OntoActionExtension implements IRutaActionExtension {
 
                 // Configuring MartTable. This corresponds to MARKTABLE(te, 1,
                 // table, idFieldName = 2, true, ignoreLength, "", 0, null);
-
+                //
                 // the Ruta element is searched for all occurences of the
-                // entries of the 'index' column of the given 'table'
+                // entries of the 'index' (1) column of the given 'table' 
                 final INumberExpression index = new SimpleNumberExpression(1);
-
+                // idFieldName = 2
                 Map<IStringExpression, INumberExpression> featuresMap = new HashMap<>();
                 featuresMap.put(new SimpleStringExpression(idFieldName),
                         new SimpleNumberExpression(2));
