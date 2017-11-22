@@ -9,7 +9,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.uima.ruta.RutaBlock;
+import org.apache.uima.ruta.RutaStream;
+import org.apache.uima.ruta.block.RutaBlock;
 import org.apache.uima.ruta.RutaStatement;
 import org.apache.uima.ruta.engine.RutaEngine;
 import org.apache.uima.ruta.expression.resource.WordTableExpression;
@@ -17,6 +18,7 @@ import org.apache.uima.ruta.resource.RutaResourceLoader;
 import org.apache.uima.ruta.resource.RutaTable;
 import org.apache.uima.ruta.resource.RutaWordList;
 import org.apache.uima.ruta.resource.TreeWordList;
+import org.apache.uima.ruta.rule.MatchContext;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 
@@ -29,10 +31,10 @@ public class OboWordTable extends WordTableExpression {
     }
 
     @Override
-    public RutaTable getTable(RutaStatement element) {
+    public RutaTable getTable(final MatchContext matchContext, final RutaStream rutaStream) {
+        RutaBlock parent = matchContext.getParent();
+        ResourceLoader resourceLoader = new RutaResourceLoader(parent.getEnvironment().getResourcePaths());
 
-        ResourceLoader resourceLoader = new RutaResourceLoader(element
-                .getEnvironment().getResourcePaths());
         Resource resource = resourceLoader.getResource(oboPath);
         if (!resource.exists()) {
             throw new RuntimeException("Cannot file obo file "
