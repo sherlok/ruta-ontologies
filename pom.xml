@@ -1,102 +1,101 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>org.apache.uima</groupId>
-    <artifactId>ruta-parent</artifactId>
-    <version>2.3.1</version>
-  </parent>
-  <artifactId>ruta-ontologies</artifactId>
+    <parent>
+        <groupId>org.apache.uima</groupId>
+        <artifactId>ruta-parent</artifactId>
+        <version>2.6.1</version>
+    </parent>
+    <artifactId>ruta-ontologies</artifactId>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.apache.uima</groupId>
-      <artifactId>ruta-core</artifactId>
-      <version>2.3.1</version>
-    </dependency>
-    <dependency>
-      <groupId>org.apache.commons</groupId>
-      <artifactId>commons-collections4</artifactId>
-      <version>4.0</version>
-    </dependency>
+    <dependencies>
+        <dependency>
+            <groupId>org.apache.uima</groupId>
+            <artifactId>ruta-core</artifactId>
+            <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-collections4</artifactId>
+            <version>4.1</version>
+        </dependency>
 
-    <dependency>
-      <groupId>dk.brics.automaton</groupId>
-      <artifactId>automaton</artifactId>
-      <version>1.11-8</version>
-    </dependency>
-    <dependency>
-      <groupId>nl.flotsam</groupId>
-      <artifactId>xeger</artifactId>
-      <version>1.0.0-SNAPSHOT</version>
-    </dependency>
+        <dependency>
+            <groupId>dk.brics.automaton</groupId>
+            <artifactId>automaton</artifactId>
+            <version>1.11-8</version>
+        </dependency>
+        <dependency>
+            <groupId>nl.flotsam</groupId>
+            <artifactId>xeger</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
+        </dependency>
 
 
-    <!-- TESTS -->
-    <dependency>
-      <groupId>junit</groupId>
-      <version>4.12</version><!--$NO-MVN-MAN-VER$ -->
-      <artifactId>junit</artifactId>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+        <!-- TESTS -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
 
-  <repositories>
-    <repository>
-      <id>sherlok_releases</id>
-      <url>https://github.com/sherlok/sherlok_mavenrepo/raw/master/releases</url>
-    </repository>
-  </repositories>
+    <repositories>
+        <repository>
+            <id>sherlok_releases</id>
+            <url>https://github.com/sherlok/sherlok_mavenrepo/raw/master/releases</url>
+        </repository>
+    </repositories>
 
-  <build>
-    <plugins>
-      <!-- compile with java 1.7 -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.7</source>
-          <target>1.7</target>
-          <encoding>UTF-8</encoding>
-        </configuration>
-      </plugin>
-    </plugins>
-    <pluginManagement>
-      <plugins>
-        <!--This plugin's configuration is used to store Eclipse m2e settings 
-          only. It has no influence on the Maven build itself. -->
-        <plugin>
-          <groupId>org.eclipse.m2e</groupId>
-          <artifactId>lifecycle-mapping</artifactId>
-          <version>1.0.0</version>
-          <configuration>
-            <lifecycleMappingMetadata>
-              <pluginExecutions>
-                <pluginExecution>
-                  <pluginExecutionFilter>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>
-                      build-helper-maven-plugin
-                    </artifactId>
-                    <versionRange>[1.8,)</versionRange>
-                    <goals>
-                      <goal>parse-version</goal>
-                    </goals>
-                  </pluginExecutionFilter>
-                  <action>
-                    <ignore></ignore>
-                  </action>
-                </pluginExecution>
-              </pluginExecutions>
-            </lifecycleMappingMetadata>
-          </configuration>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-  </build>
+    <build>
+        <plugins>
+            <!-- compile with java 1.8 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                </configuration>
+            </plugin>
+        </plugins>
+        <pluginManagement>
+            <plugins>
+                <!--This plugin's configuration is used to store Eclipse m2e settings
+                  only. It has no influence on the Maven build itself. -->
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.codehaus.mojo</groupId>
+                                        <artifactId>
+                                            build-helper-maven-plugin
+                                        </artifactId>
+                                        <versionRange>[1.8,)</versionRange>
+                                        <goals>
+                                            <goal>parse-version</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore></ignore>
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
 </project>
