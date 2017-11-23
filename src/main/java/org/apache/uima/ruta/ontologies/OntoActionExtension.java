@@ -13,6 +13,7 @@ import org.apache.uima.ruta.RutaElement;
 import org.apache.uima.ruta.action.AbstractRutaAction;
 import org.apache.uima.ruta.action.ActionFactory;
 import org.apache.uima.ruta.action.MarkTableAction;
+import org.apache.uima.ruta.expression.AnnotationTypeExpression;
 import org.apache.uima.ruta.expression.RutaExpression;
 import org.apache.uima.ruta.expression.bool.SimpleBooleanExpression;
 import org.apache.uima.ruta.expression.number.ComposedNumberExpression;
@@ -78,8 +79,8 @@ public class OntoActionExtension implements IRutaActionExtension {
 
             // Annotation type (2nd parameter)
             RutaExpression re = args.get(1);
-            SimpleTypeExpression te = (SimpleTypeExpression) re;
-            typeString = te.getTypeString();
+            AnnotationTypeExpression ate = (AnnotationTypeExpression) re;
+            typeString = ate.toString();
 
             // case ignored if the length of the word exceeds 4
             INumberExpression ignoreLength = new SimpleNumberExpression(4);
@@ -142,7 +143,7 @@ public class OntoActionExtension implements IRutaActionExtension {
                 IStringExpression ignoreChar = new SimpleStringExpression("");
                 INumberExpression maxIgnoreChar = new SimpleNumberExpression(0);
 
-                MarkTableAction2 mta = new MarkTableAction2(te, index, table, featuresMap,
+                MarkTableAction2 mta = new MarkTableAction2(ate, index, table, featuresMap,
                                 TRUE, ignoreLength, ignoreChar, maxIgnoreChar);
                 mta.setIgnoreWS(FALSE); // do not ignore whitespace in resources
                 return mta;
