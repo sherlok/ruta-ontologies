@@ -34,3 +34,8 @@ target/**
 Icon?
 ehthumbs.db
 Thumbs.d
+
+# intellij idea #
+#################
+ruta-ontologies.iml
+.idea/
